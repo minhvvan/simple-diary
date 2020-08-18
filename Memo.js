@@ -3,17 +3,19 @@ import { Ionicons, AntDesign } from '@expo/vector-icons';
 import { StatusBar, TouchableWithoutFeedback, Keyboard, StyleSheet, Text, View, TouchableOpacity,TextInput, SafeAreaView, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
 
-export default function Memo() {
-  const [text, setText] = useState('이민환 븅신 ?'); 
+
+const Memo =  ({route, navigation}) => {
+  const [text, setText] = useState('일기이이이장'); 
   const [clicked, setClicked] = useState(false);
+  const {date} = route.params;
   return (
     <View style={styles.container}>
     <StatusBar hidden={true}/>
       <View style={styles.topBar}>    
-        <TouchableOpacity style={{flex: 2}} onPress={()=>{alert("click")}}>
+        <TouchableOpacity style={{flex: 2}} onPress={()=>{navigation.goBack()}}>
           <Ionicons name="ios-arrow-back" size={40} color="black" />
         </TouchableOpacity>
-          <Text style={{flex: 5, fontSize: 30, fontStyle: 'italic'}}>2020/02/02
+          <Text style={{flex: 5, fontSize: 30, fontStyle: 'italic'}}>{date.dateString}
         </Text>
         <View style={{flex: 0.6}}>
           <TouchableOpacity onPress={()=>{setClicked(!clicked)}}>
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 10,
+    marginTop: Constants.statusBarHeight,
     marginBottom: 10,
     marginHorizontal: 15
   },
@@ -76,7 +78,8 @@ const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: 'white',
     marginHorizontal: 3, 
-  
     alignContent: 'flex-start',
   },
 });
+
+export default Memo;
